@@ -14,15 +14,8 @@ body {
     max-width: 650px;
     width: 100%;
     height: auto;
-    border-radius: 16px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-    margin-bottom: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: transform 0.3s ease;
-}
-
-.banner:hover {
-    transform: translateY(-2px);
+    display: block;
+    margin: 0 auto 25px;
 }
 
 .status-badge {
