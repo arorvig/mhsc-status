@@ -19,7 +19,15 @@
         <div class="offline-msg" id="placeholder">Loading...</div>
     </div>
 
+    <footer>
+        <p>&copy; <span id="current-year"></span> Mile High Sky Cam. All rights reserved.</p>
+        <p>For media or commercial licensing, contact <a href="mailto:admin@milehighskycam.com">admin@milehighskycam.com</a></p>
+    </footer>
+
     <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
         // Add a cache-busting timestamp so the browser always fetches the latest status
         fetch('status.json?t=' + new Date().getTime())
             .then(response => response.json())
