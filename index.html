@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mile High Sky Cam</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
-        <img src="logo.png" alt="MHSC Logo" class="logo">
-        <h1>Mile High Sky Cam</h1>
+        <img src="banner.png" alt="Mile High Sky Cam Banner" class="banner">
     </header>
-    <h3 id="status-text">Checking status...</h3>
+    
+    <div id="status-text" class="status-badge offline">Checking status...</div>
     
     <div id="player-container">
         <div class="offline-msg" id="placeholder">Loading...</div>
@@ -33,23 +34,28 @@
                     const diffHours = (now - lastUpdate) / (1000 * 60 * 60);
 
                     if (diffHours <= 24.5) {
-                        statusText.innerText = "🔴 LIVE NOW";
-                        statusText.style.color = "#ff4444";
+                        statusText.innerHTML = '<span class="pulse-dot"></span> LIVE NOW';
+                        statusText.className = "status-badge live";
+                        container.classList.add("live-glow");
                         container.innerHTML = `<iframe src="https://www.youtube.com/embed/${data.video_id}?autoplay=1&mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
                     } else {
                         console.warn("Status is stale (>24.5h old). Applying Dead Man's Switch.");
-                        statusText.innerText = "⚫ OFFLINE";
-                        statusText.style.color = "#888";
+                        statusText.innerText = "OFFLINE";
+                        statusText.className = "status-badge offline";
+                        container.classList.remove("live-glow");
                         container.innerHTML = `<div class="offline-msg">We are currently down for daily maintenance or experiencing technical difficulties.</div>`;
                     }
                 } else {
-                    statusText.innerText = "⚫ OFFLINE";
-                    statusText.style.color = "#888";
+                    statusText.innerText = "OFFLINE";
+                    statusText.className = "status-badge offline";
+                    container.classList.remove("live-glow");
                     container.innerHTML = `<div class="offline-msg">The stream is currently offline.</div>`;
                 }
             })
             .catch(error => {
-                document.getElementById('status-text').innerText = "Status Unknown";
+                const statusText = document.getElementById('status-text');
+                statusText.innerText = "STATUS UNKNOWN";
+                statusText.className = "status-badge offline";
             });
     </script>
 </body>
